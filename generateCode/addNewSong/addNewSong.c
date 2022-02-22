@@ -1,38 +1,32 @@
 #include "addNewSong.h"
 
-int countSongs=0;
-sn* rev;
+int countSongs=0; //number of songs || number of nodes
 
-sn* addNewSong(sn *temp,sn*head){
-   if(temp==NULL){
-     temp=(sn*)malloc(sizeof(sn));
+
+sn* addNewSong(sn *head, sn *temp){
+   if(head==NULL || temp->next==head){
+      sn* newNode=(sn*)malloc(sizeof(sn));
       printf("\nSinger Name: ");
       scanf("\n");
-      scanf("%[^\n]",temp->singerName);
+      scanf("%[^\n]",newNode->singerName);
       printf("Song Name: ");
       scanf("\n");
-     scanf("%[^\n]",temp->songName);
-     countSongs++;
-     temp->next=temp;
-     temp->prev=temp->next;
-   }
-   else{
-     rev=temp;
-     temp->next=(sn*)malloc(sizeof(sn));
-     temp=temp->next;
-     printf("\nSinger Name: ");
-     scanf("\n");
-     scanf("%[^\n]",temp->singerName);
-     printf("Song Name: ");
-     scanf("\n");
-     scanf("%[^\n]",temp->songName);
-     countSongs++;
-     temp->next=head;
-     temp->prev=rev;
-   }
-   temp->rank=countSongs;
-  return temp;
-}
+      scanf("%[^\n]",newNode->songName);
+      countSongs++;
+      newNode->rank=countSongs;
+      if(head == NULL){
+         newNode->next=newNode;
+         newNode->prev=newNode;
+         return newNode;
+      }
+      newNode->next=head;
+      head->prev=newNode;
+      temp->next=newNode;
+      return temp;
+   }// end global if
+   temp->next=addNewSong(head,temp->next); // recursion
+   return temp;
+} // end function
 
 int getCountSongs(){
   return countSongs;
