@@ -2,7 +2,7 @@
 #include "../addNewSong/addNewSong.h"
 #include "../listenToSongs/listenToSongs.h"
 
-extern sn* addNewSong(sn*h,sn*head);
+extern sn* addNewSong(sn *head,sn *temp);
 extern int getCountSongs();
 extern void music(sn * head);
 
@@ -22,13 +22,13 @@ int generate(){
   sleep(1); 
   clrscreen();
   switch(choice){
-    case 0:
+    /*case 0:
       temp=head;
       do{
        free(temp);
        temp=temp->next;
       }while(temp == head);
-      return 0;
+      return 0;*/
     case 1:
       if(getCountSongs() == 0){
        head=addNewSong(head,head);
@@ -36,7 +36,6 @@ int generate(){
       }
      else{
        temp=addNewSong(temp,head);
-       head->prev=temp;
      }
     break;
     case 2:
@@ -47,14 +46,6 @@ int generate(){
       printf("\nPlease enter a correct number\n");
       sleep(1);
       goto retry;
-  }
-  
- 
- /* else if(choice == 3){
-  
-  }
-  else if(choice == 4){
-  
-  }*/
+  }// end switch
   return 1;
-}
+} // end function
